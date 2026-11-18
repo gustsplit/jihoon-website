@@ -1,0 +1,128 @@
+/* Classic brick colors. Every stud uses exactly one of these, solid, never blended. */
+:root {
+  --red: #D01012;
+  --yellow: #FFCF00;
+  --blue: #0055BF;
+  --green: #00852B;
+  --ink: #1B1B1B;
+  --plate: #F4F4F4;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Fredoka", "Comic Sans MS", "Trebuchet MS", sans-serif;
+  color: var(--ink);
+  background-color: var(--plate);
+  /* Stud pattern: four layers, each a single solid color with a hard edge (no gradients inside a stud). */
+  background-image:
+    radial-gradient(circle at center, var(--red) 0 12px, transparent 12px),
+    radial-gradient(circle at center, var(--yellow) 0 12px, transparent 12px),
+    radial-gradient(circle at center, var(--blue) 0 12px, transparent 12px),
+    radial-gradient(circle at center, var(--green) 0 12px, transparent 12px);
+  background-size: 128px 64px;
+  background-position: 0 0, 32px 0, 64px 0, 96px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.page {
+  flex: 1;
+  width: min(960px, 92%);
+  margin: 40px auto 24px;
+}
+
+/* A row of four bricks. Each brick and its studs are one solid color. */
+.brick-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.brick {
+  position: relative;
+  height: 56px;
+  margin-top: 16px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 10%;
+  border: 3px solid var(--ink);
+}
+
+.brick span {
+  width: 26px;
+  height: 16px;
+  margin-top: -19px;
+  border: 3px solid var(--ink);
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  background: inherit; /* same single solid color as its brick */
+}
+
+.red    { background: var(--red); }
+.yellow { background: var(--yellow); }
+.blue   { background: var(--blue); }
+.green  { background: var(--green); }
+
+.hero {
+  background: var(--yellow);
+  border: 4px solid var(--ink);
+  border-radius: 14px;
+  padding: 40px 24px;
+  text-align: center;
+  box-shadow: 0 8px 0 var(--ink);
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--red);
+  text-shadow: 4px 4px 0 var(--ink);
+}
+
+.welcome {
+  margin: 12px 0 0;
+  font-size: clamp(1.1rem, 2.6vw, 1.5rem);
+  font-weight: 500;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 32px;
+}
+
+.card {
+  border: 4px solid var(--ink);
+  border-radius: 12px;
+  padding: 20px;
+  color: #fff;
+  box-shadow: 0 6px 0 var(--ink);
+  transition: transform 0.15s ease;
+  cursor: pointer;
+}
+
+.card h2 { margin: 0 0 8px; font-size: 1.6rem; }
+.card p  { margin: 0; font-size: 1.05rem; }
+
+.card.pop { transform: translateY(-8px); }
+
+.footer {
+  text-align: center;
+  padding: 16px;
+  background: var(--blue);
+  color: #fff;
+  border-top: 4px solid var(--ink);
+  font-weight: 500;
+}
+
+@media (max-width: 600px) {
+  .brick-row { grid-template-columns: repeat(2, 1fr); }
+}
