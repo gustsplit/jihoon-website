@@ -22,6 +22,12 @@
     p.textContent = brick.text;
     card.appendChild(h3);
     card.appendChild(p);
+    if (brick.airport) {
+      var job = document.createElement("p");
+      job.className = "airport-job";
+      job.textContent = "Airport job: " + brick.airport;
+      card.appendChild(job);
+    }
     return card;
   }
 
@@ -31,6 +37,7 @@
     data.others.forEach(function (brick) { others.appendChild(makeCard(brick, false)); });
   }
 
+  document.getElementById("hero-plane").appendChild(window.AirportArt.drawPlane({ body: "blue", wing: "red", tail: "red", windows: "yellow" }));
   document.getElementById("year").textContent = new Date().getFullYear();
   window.SiteAPI.loadFavoriteBricks().then(render);
 })();

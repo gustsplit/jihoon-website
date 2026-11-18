@@ -1,11 +1,13 @@
 // FRONT-END: game screen and animations only.
-// The rule for a correct stack lives in the back-end; we ask it through the interface (SiteAPI).
+// The rule for a correct stack and the game words live in the back-end; we ask through the interface (SiteAPI).
 (function () {
   "use strict";
 
   var api = window.SiteAPI;
   var stack = [];
   var busy = false;
+  var text = { start: "Click a brick to start!", good: "Nice! What comes next?",
+               oops: "Oops! Try again. Start with red.", win: "You built the tower! Ready for takeoff!" };
   var stackEl = document.getElementById("stack");
   var msgEl = document.getElementById("message");
   var choicesEl = document.getElementById("choices");
@@ -26,16 +28,33 @@
     return a;
   }
 
-  function setMessage(text) { msgEl.textContent = text; }
+  function setMessage(value) { msgEl.textContent = value; }
 
   function drawStack() {
     stackEl.innerHTML = "";
     stack.forEach(function (color) { stackEl.appendChild(stud(color)); });
   }
 
+  // Tower cab on top of the finished stack: the glass room where the tower team watches the planes.
+  function addTowerCab() {
+    var cab = document.createElement("div");
+    cab.className = "tower-cab";
+    var svg = window.AirportArt.drawTower();
+    svg.setAttribute("viewBox", "-2 -16 124 102"); // only the cab part of the tower
+    cab.appendChild(svg);
+    stackEl.appendChild(cab);
+  }
+
   function celebrate() {
     stackEl.classList.add("win");
-    setMessage("You did it! Awesome stacking!");
+    addTowerCab();
+    setMessage(text.win);
+
+    var plane = document.createElement("div");
+    plane.className = "win-plane";
+    plane.appendChild(window.AirportArt.drawPlane({ body: "blue", wing: "yellow", tail: "red", windows: "yellow" }));
+    partyEl.appendChild(plane);
+
     var colors = ["red", "yellow", "blue", "green"];
     for (var i = 0; i < 40; i++) {
       var bit = document.createElement("span");
@@ -52,7 +71,7 @@
     stackEl.classList.remove("win", "oops");
     partyEl.innerHTML = "";
     drawStack();
-    setMessage("Click a stud to start!");
+    setMessage(text.start);
     buildChoices(["red", "yellow", "blue", "green"]);
   }
 
@@ -63,7 +82,7 @@
       if (!result.ok) {
         busy = true;
         stackEl.classList.add("oops");
-        setMessage("Oops! Try again. Start with red.");
+        setMessage(text.oops);
         setTimeout(function () {
           stack = [];
           drawStack();
@@ -75,7 +94,7 @@
       stack = next;
       drawStack();
       if (result.complete) { busy = true; celebrate(); }
-      else { setMessage("Nice! What comes next?"); }
+      else { setMessage(text.good); }
     });
   }
 
@@ -84,11 +103,19 @@
     shuffle(colors).forEach(function (color) {
       var btn = stud(color, "button");
       btn.type = "button";
-      btn.setAttribute("aria-label", color + " stud");
+      btn.setAttribute("aria-label", color + " brick");
       btn.addEventListener("click", function () { pick(color); });
       choicesEl.appendChild(btn);
     });
   }
+
+  api.loadGameText().then(function (words) {
+    text = words;
+    document.title = words.title;
+    document.getElementById("game-title").textContent = words.title;
+    document.getElementById("game-intro").textContent = words.intro;
+    setMessage(words.start);
+  });
 
   api.loadStackOrder().then(function (order) {
     var hint = document.getElementById("order-hint");

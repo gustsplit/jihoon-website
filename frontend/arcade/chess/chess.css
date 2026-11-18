@@ -1,0 +1,41 @@
+/* FRONT-END (arcade): chess screen styles. Dark look like Mini Roblox's chess arena. */
+.chess-page {
+  margin: 0; min-height: 100vh; color: #F3F4F6;
+  font-family: 'Fredoka', -apple-system, 'Segoe UI', sans-serif;
+  background: #18191C;
+}
+.chess-top { display: flex; align-items: center; gap: 16px; padding: 12px 20px; background: #26272B; border-bottom: 1px solid #333; flex-wrap: wrap; }
+.chess-top h1 { margin: 0; font-size: 1.6rem; }
+.chess-sub { color: #BDBDBD; }
+.chess-layout { display: flex; gap: 24px; padding: 24px; justify-content: center; align-items: flex-start; flex-wrap: wrap; }
+.chess-board {
+  display: grid; grid-template-columns: repeat(8, 1fr); grid-template-rows: repeat(8, 1fr); overflow: hidden;
+  width: min(88vw, 560px); aspect-ratio: 1 / 1;
+  border: 8px solid #26272B; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+.sq { position: relative; border: 0; padding: 0; margin: 0; min-width: 0; min-height: 0; overflow: hidden; font-family: inherit; display: flex; align-items: center; justify-content: center; cursor: pointer;
+  font-size: min(8.5vw, 52px); line-height: 1; }
+.sq.light { background: #EEEED2; }
+.sq.dark { background: #769656; }
+.sq.last { box-shadow: inset 0 0 0 100px rgba(255, 207, 0, 0.38); }
+.sq.picked { box-shadow: inset 0 0 0 4px #FFCF00, inset 0 0 0 100px rgba(255, 207, 0, 0.30); }
+.sq.check { box-shadow: inset 0 0 0 100px rgba(208, 16, 18, 0.55); }
+.sq.target::after { content: ''; width: 30%; height: 30%; border-radius: 50%; background: rgba(0, 0, 0, 0.28); position: absolute; }
+.sq.target.capture::after { width: 86%; height: 86%; background: transparent; border: 5px solid rgba(0, 0, 0, 0.3); }
+.piece { position: relative; z-index: 1; user-select: none; }
+.piece.w { color: #FFFFFF; text-shadow: 0 0 2px #000, 0 0 2px #000, 0 2px 3px rgba(0, 0, 0, 0.6); }
+.piece.b { color: #111111; text-shadow: 0 0 2px rgba(255, 255, 255, 0.7), 0 2px 3px rgba(0, 0, 0, 0.5); }
+.chess-side { width: min(88vw, 300px); background: #26272B; border-radius: 14px; padding: 18px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+.chess-status { font-size: 1.35rem; font-weight: 700; margin: 0 0 16px; min-height: 2.4em; }
+.chess-label { display: block; color: #BDBDBD; margin-bottom: 6px; }
+.chess-levels, .chess-buttons { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.chess-btn { font: inherit; font-weight: 700; font-size: 1rem; padding: 9px 16px; border-radius: 10px; border: 0; cursor: pointer; color: #fff;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.35), inset 0 -3px 0 rgba(0, 0, 0, 0.25); }
+.chess-btn.red { background: #D01012; }
+.chess-btn.yellow { background: #FFCF00; color: #1A1A1A; }
+.chess-btn.blue { background: #0055BF; }
+.chess-btn.green { background: #00852B; }
+.chess-btn.level { background: #3A3B40; }
+.chess-btn.level.active { background: #0055BF; }
+.chess-btn:disabled { opacity: 0.5; cursor: default; }
+.chess-help { color: #BDBDBD; font-size: 0.95rem; margin: 0; }

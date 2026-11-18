@@ -17,13 +17,18 @@ body {
   color: var(--ink);
   background-color: var(--plate);
   /* Stud pattern: four layers, each a single solid color with a hard edge (no gradients inside a stud). */
+  /* 3D stud pattern. Each stud uses only tints of its own color (never a second color). */
   background-image:
-    radial-gradient(circle at center, var(--red) 0 12px, transparent 12px),
-    radial-gradient(circle at center, var(--yellow) 0 12px, transparent 12px),
-    radial-gradient(circle at center, var(--blue) 0 12px, transparent 12px),
-    radial-gradient(circle at center, var(--green) 0 12px, transparent 12px);
+    radial-gradient(circle at 46% 40%, rgba(255,255,255,0.45) 0 4px, transparent 6px),
+    radial-gradient(circle at center, #E8494A 0 9px, var(--red) 10px 11px, #A00B0D 12px, transparent 12.5px),
+    radial-gradient(circle at 46% 40%, rgba(255,255,255,0.55) 0 4px, transparent 6px),
+    radial-gradient(circle at center, #FFE066 0 9px, var(--yellow) 10px 11px, #D9AF00 12px, transparent 12.5px),
+    radial-gradient(circle at 46% 40%, rgba(255,255,255,0.45) 0 4px, transparent 6px),
+    radial-gradient(circle at center, #3D7FD6 0 9px, var(--blue) 10px 11px, #003F8F 12px, transparent 12.5px),
+    radial-gradient(circle at 46% 40%, rgba(255,255,255,0.45) 0 4px, transparent 6px),
+    radial-gradient(circle at center, #2FA555 0 9px, var(--green) 10px 11px, #005F1E 12px, transparent 12.5px);
   background-size: 128px 64px;
-  background-position: 0 0, 32px 0, 64px 0, 96px 0;
+  background-position: 0 0, 0 0, 32px 0, 32px 0, 64px 0, 64px 0, 96px 0, 96px 0;
   display: flex;
   flex-direction: column;
 }
@@ -60,13 +65,13 @@ body {
   border: 3px solid var(--ink);
   border-bottom: none;
   border-radius: 6px 6px 0 0;
-  background: inherit; /* same single solid color as its brick */
+  background-color: inherit; /* same single color as its brick */
 }
 
-.red    { background: var(--red); }
-.yellow { background: var(--yellow); }
-.blue   { background: var(--blue); }
-.green  { background: var(--green); }
+.red    { --c: var(--red);    --c-hi: #E8494A; --c-lo: #A00B0D; background-color: var(--red); }
+.yellow { --c: var(--yellow); --c-hi: #FFE066; --c-lo: #D9AF00; background-color: var(--yellow); }
+.blue   { --c: var(--blue);   --c-hi: #3D7FD6; --c-lo: #003F8F; background-color: var(--blue); }
+.green  { --c: var(--green);  --c-hi: #2FA555; --c-lo: #005F1E; background-color: var(--green); }
 
 .hero {
   background: var(--yellow);
@@ -322,3 +327,407 @@ body {
 @keyframes shake { 0%, 100% { transform: none; } 25% { transform: translateX(-12px); } 75% { transform: translateX(12px); } }
 @keyframes hop { 0%, 100% { transform: none; } 50% { transform: translateY(-24px) scale(1.05); } }
 @keyframes fall { to { transform: translateY(110vh) rotate(540deg); } }
+
+
+/* ---------- Realistic plastic look ----------
+   Light and shadow are white/black overlays on the piece's own color,
+   so every stud and brick stays one color. */
+.brick, .art-body {
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0) 30%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.24) 100%);
+  box-shadow:
+    inset 0 3px 0 rgba(255,255,255,0.35),
+    inset 0 -6px 0 rgba(0,0,0,0.22),
+    inset 3px 0 0 rgba(255,255,255,0.12),
+    inset -3px 0 0 rgba(0,0,0,0.14),
+    0 4px 0 rgba(0,0,0,0.25);
+}
+
+.brick span, .art-stud {
+  background-image: linear-gradient(90deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.10) 35%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.20) 100%);
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.45);
+}
+
+.stud-piece {
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0) 35%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.24) 100%);
+  box-shadow: inset 0 3px 0 rgba(255,255,255,0.35), inset 0 -6px 0 rgba(0,0,0,0.22);
+}
+
+.choices .stud-piece, .order-hint .stud-piece {
+  background-image:
+    radial-gradient(circle at 36% 30%, rgba(255,255,255,0.60) 0 12%, rgba(255,255,255,0) 38%),
+    radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 0 55%, rgba(0,0,0,0.25) 75%);
+  box-shadow: inset 0 -5px 0 rgba(0,0,0,0.22), 0 6px 0 var(--ink);
+}
+.order-hint .stud-piece { box-shadow: inset 0 -3px 0 rgba(0,0,0,0.22); }
+.choices .stud-piece:active { box-shadow: inset 0 -3px 0 rgba(0,0,0,0.22), 0 2px 0 var(--ink); }
+
+.confetti {
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.35), rgba(0,0,0,0.2));
+}
+
+/* =====================================================================
+   AIRPORT THEME
+   Every brick, stud, plane, and tower piece uses only red, yellow, blue, or green.
+   Shading = lighter/darker tones of the same color or white/black overlays.
+   ===================================================================== */
+:root {
+  --sky-top: #BFE3FF;
+  --sky-low: #EAF6FF;
+  --tarmac: #3A3E44;
+}
+
+/* ---------- SVG brick art (planes, jet, tower) ---------- */
+.art-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.art-svg .pc { fill: var(--c); }
+.art-svg .pc.tone-hi { fill: var(--c-hi); }
+.art-svg .pc.tone-lo { fill: var(--c-lo); }
+.art-svg .shade { stroke: none; }
+.art-svg .edge { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-linejoin: round; }
+.art-svg .seam { stroke: rgba(0,0,0,0.28); stroke-width: 1.5; }
+.art-svg .shine { fill: rgba(255,255,255,0.7); }
+.art-svg .gleam { fill: none; stroke: rgba(255,255,255,0.8); stroke-width: 3; stroke-linecap: round; }
+.art-svg .mouth { fill: var(--ink); }
+/* the color classes also set background-color; SVG shapes ignore it */
+
+/* ---------- Homepage airport scene ---------- */
+.airport {
+  position: relative;
+  overflow: hidden;
+  border: 4px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: 0 8px 0 var(--ink);
+  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-low) 70%);
+}
+
+.airport-sign {
+  position: relative;
+  z-index: 2;
+  width: fit-content;
+  max-width: calc(100% - 32px);
+  margin: 24px auto 0;
+  padding: 14px 28px 16px;
+  text-align: center;
+  background: #fff;
+  border: 4px solid var(--ink);
+  border-radius: 12px;
+  box-shadow: 0 6px 0 var(--ink);
+}
+.airport-sign h1 {
+  margin: 0;
+  font-size: clamp(3rem, 10vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: 2px;
+  color: var(--red);
+  text-shadow: 4px 4px 0 var(--ink);
+}
+.airport-sign .welcome { margin-top: 10px; }
+
+.clouds { position: absolute; inset: 0; pointer-events: none; }
+.cloud {
+  position: absolute;
+  height: 26px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: inset 0 -5px 0 rgba(0,0,0,0.06), 0 3px 0 rgba(0,0,0,0.08);
+}
+.cloud::before {
+  content: "";
+  position: absolute;
+  left: 22%;
+  top: -16px;
+  width: 50%;
+  height: 18px;
+  background: #fff;
+  border-radius: 6px 6px 0 0;
+}
+.cloud.c1 { width: 120px; left: 5%; top: 40px; }
+.cloud.c2 { width: 90px; right: 8%; top: 30px; }
+.cloud.c3 { width: 140px; left: 52%; top: 250px; opacity: 0.8; }
+
+.sky-lane {
+  position: relative;
+  z-index: 1;
+  height: 190px;
+}
+.guardian-jet {
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  width: min(400px, 78%);
+  margin-left: calc(min(400px, 78%) / -2);
+  filter: drop-shadow(0 10px 6px rgba(0,0,0,0.18));
+  animation: jet-glide 6s ease-in-out infinite alternate;
+}
+.jet-tag {
+  position: absolute;
+  right: 4%;
+  top: 6px;
+  margin: 0;
+  padding: 4px 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  background: var(--yellow);
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 0 3px 0 var(--ink);
+}
+
+.airfield {
+  position: relative;
+  height: 250px;
+}
+.tower {
+  position: absolute;
+  z-index: 2;
+  left: 5%;
+  bottom: 114px;
+  width: 110px;
+}
+.grass {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 110px;
+  height: 22px;
+  background-color: var(--green);
+  background-image:
+    radial-gradient(circle at 50% 45%, var(--c-hi, #2FA555) 0 4px, var(--green) 5px 6px, #005F1E 7px, transparent 7.5px),
+    linear-gradient(180deg, rgba(255,255,255,0.25), rgba(0,0,0,0.2));
+  background-size: 22px 22px, 100% 100%;
+  border-top: 3px solid var(--ink);
+}
+.runway {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 110px;
+  background: var(--tarmac);
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.25));
+  border-top: 3px solid var(--ink);
+}
+.center-line {
+  position: absolute;
+  left: 0; right: 0; top: 50%;
+  height: 8px;
+  margin-top: -4px;
+  background: repeating-linear-gradient(90deg, #fff 0 46px, transparent 46px 80px);
+  opacity: 0.9;
+}
+.runway-lights {
+  position: absolute;
+  left: 2%; right: 2%;
+  display: flex;
+  justify-content: space-between;
+}
+.runway-lights.top { top: 10px; }
+.runway-lights.bottom { bottom: 10px; }
+.runway-light {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  background-image: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.75) 0 20%, rgba(255,255,255,0) 45%),
+                    radial-gradient(circle, rgba(0,0,0,0) 55%, rgba(0,0,0,0.25) 80%);
+  box-shadow: 0 0 8px 1px var(--c-hi);
+  animation: blink 1.6s ease-in-out infinite;
+}
+.runway-plane {
+  position: absolute;
+  z-index: 3;
+  right: 6%;
+  bottom: 40px;
+  width: min(290px, 46%);
+  transform-origin: 20% 90%;
+  animation: takeoff 4s ease-in-out infinite alternate;
+}
+
+/* ---------- Departure board links ---------- */
+.board {
+  margin-top: 32px;
+  padding: 18px;
+  background: #22252A;
+  border: 4px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: 0 8px 0 var(--ink);
+}
+.board-title {
+  margin: 0 0 14px;
+  color: var(--yellow);
+  font-size: 1.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.board .page-links {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin: 0;
+}
+.board .page-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  text-align: left;
+  font-size: 1.4rem;
+  color: #fff;
+  background: #33373D;
+  border: 3px solid #000;
+  border-radius: 10px;
+  box-shadow: 0 4px 0 #000;
+}
+.board .page-link:hover, .board .page-link:focus-visible {
+  transform: translateY(-3px);
+  outline: 3px solid var(--yellow);
+  outline-offset: 2px;
+}
+.gate {
+  flex: none;
+  min-width: 92px;
+  padding: 6px 10px;
+  text-align: center;
+  font-size: 1.05rem;
+  color: #fff;
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0) 35%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.24) 100%);
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.35), inset 0 -3px 0 rgba(0,0,0,0.22);
+}
+.gate.yellow { color: var(--ink); }
+.flight { flex: 1; letter-spacing: 1px; }
+.status {
+  flex: none;
+  color: var(--yellow);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  animation: blink 2s steps(2, jump-none) infinite;
+}
+
+/* About / Ideas cards keep the plastic look */
+.card {
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 30%, rgba(0,0,0,0) 65%, rgba(0,0,0,0.20) 100%);
+}
+.card.yellow { color: var(--ink); }
+
+/* ---------- Favorite Bricks: airport job line ---------- */
+.airport-job {
+  display: inline-block;
+  margin-top: 10px !important;
+  padding: 6px 12px;
+  font-weight: 700;
+  background: #EAF6FF;
+  border: 3px dashed var(--ink);
+  border-radius: 10px;
+}
+.brick-card.is-featured .airport-job { font-size: 1.2rem; }
+
+.hero.sky-hero {
+  background: linear-gradient(180deg, var(--sky-top), var(--sky-low));
+  position: relative;
+  overflow: hidden;
+}
+.hero.sky-hero .hero-plane {
+  width: 190px;
+  margin: 0 auto 6px;
+}
+.hero.sky-hero .welcome { font-weight: 700; }
+
+/* ---------- Tower Builder game ---------- */
+.tower-board {
+  position: relative;
+  background: linear-gradient(180deg, var(--sky-top), var(--sky-low));
+  overflow: hidden;
+}
+.tower-board .stack {
+  position: relative;
+  min-height: 300px;
+  gap: 12px;
+  padding-bottom: 30px;
+}
+.tower-board .stack::after {
+  /* runway strip the tower stands on */
+  content: "";
+  position: absolute;
+  left: -20px; right: -20px; bottom: 0;
+  height: 24px;
+  background: var(--tarmac) repeating-linear-gradient(90deg, rgba(255,255,255,0.85) 0 30px, transparent 30px 56px) center / 100% 4px no-repeat;
+  border-top: 3px solid var(--ink);
+}
+.stack .stud-piece {
+  position: relative;
+  width: 140px;
+  height: 44px;
+  border-radius: 6px;
+  flex: none;
+}
+.stack .stud-piece::before, .stack .stud-piece::after {
+  /* two studs on top, same single color as the brick */
+  content: "";
+  position: absolute;
+  top: -13px;
+  width: 30px;
+  height: 11px;
+  border: 3px solid var(--ink);
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+  background-color: var(--c);
+  background-image: linear-gradient(90deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.1) 35%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.2) 100%);
+}
+.stack .stud-piece::before { left: 20px; }
+.stack .stud-piece::after { right: 20px; }
+.tower-cab {
+  width: 150px;
+  flex: none;
+  animation: drop 0.4s ease-out;
+}
+.win-plane {
+  position: fixed;
+  z-index: 20;
+  left: 0;
+  top: 40%;
+  width: 260px;
+  animation: fly-by 3.2s ease-in forwards;
+  pointer-events: none;
+}
+
+/* ---------- Animations ---------- */
+@keyframes jet-glide {
+  0%   { transform: translate(-30px, 8px) rotate(2deg); }
+  50%  { transform: translate(0, -6px) rotate(-3deg); }
+  100% { transform: translate(30px, 6px) rotate(1deg); }
+}
+@keyframes takeoff {
+  from { transform: translateX(0) rotate(0deg); }
+  to   { transform: translate(-18px, -20px) rotate(-7deg); }
+}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+@keyframes fly-by {
+  from { transform: translate(-300px, 120px) rotate(-6deg); }
+  to   { transform: translate(110vw, -260px) rotate(-14deg); }
+}
+
+/* ---------- Phone width ---------- */
+@media (max-width: 600px) {
+  .page { margin-top: 20px; }
+  .airport-sign { padding: 10px 16px 12px; margin-top: 16px; }
+  .sky-lane { height: 170px; }
+  .guardian-jet { top: 28px; }
+  .jet-tag { right: 50%; transform: translateX(50%); top: 0; font-size: 0.9rem; white-space: nowrap; }
+  .cloud.c3 { display: none; }
+  .airfield { height: 210px; }
+  .tower { width: 58px; left: 3%; bottom: 99px; }
+  .runway { height: 96px; }
+  .grass { bottom: 96px; }
+  .runway-plane { width: 58%; right: 3%; bottom: 30px; }
+  .runway-light { width: 11px; height: 11px; }
+  .board .page-link { font-size: 1.1rem; gap: 10px; padding: 10px; flex-wrap: wrap; }
+  .gate { min-width: 74px; font-size: 0.95rem; }
+  .status { font-size: 0.85rem; }
+  .stack .stud-piece { width: 120px; }
+}
+
+/* ---------- Respect reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .win-plane { left: 50%; top: 30%; margin-left: -130px; }
+  .confetti { display: none; }
+}

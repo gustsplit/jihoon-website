@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stud Stacking Game</title>
+  <title>Tower Builder Game</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
@@ -13,16 +13,16 @@
   <main class="page">
     <a class="back-link" href="index.html">&larr; Home</a>
 
-    <header class="hero">
-      <h1 class="page-title">Stud Stacking Game</h1>
-      <p class="welcome">Stack the studs in this order: red, yellow, blue, green!</p>
+    <header class="hero sky-hero">
+      <h1 id="game-title" class="page-title">Tower Builder Game</h1>
+      <p id="game-intro" class="welcome">Build the control tower! Stack the bricks in this order: red, yellow, blue, green.</p>
     </header>
 
     <section class="game">
-      <div class="game-board">
-        <div id="order-hint" class="order-hint" aria-label="Color order"></div>
+      <div class="game-board tower-board">
+        <div id="order-hint" class="order-hint" aria-label="Color order: red, yellow, blue, green"></div>
         <div id="stack" class="stack" aria-live="polite"></div>
-        <p id="message" class="message">Click a stud to start!</p>
+        <p id="message" class="message" aria-live="polite">Click a brick to start!</p>
       </div>
       <div id="choices" class="choices"></div>
       <button id="restart" class="restart" type="button">Play Again</button>
@@ -37,6 +37,7 @@
 
   <script src="../backend/content.js"></script>
   <script src="../interface/api.js"></script>
+  <script src="airport-art.js"></script>
   <script src="game.js"></script>
 </body>
 </html>

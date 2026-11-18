@@ -1,0 +1,294 @@
+#gameView {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2500;
+  background: #000000;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.game-viewport-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #0B0D0F;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* TOPBAR IN GAME */
+.game-topbar {
+  height: 68px;
+  background: rgba(20, 22, 26, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 10;
+}
+
+.game-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.roblox-tilt-logo-sm {
+  width: 26px;
+  height: 26px;
+  background: #FFFFFF;
+  border-radius: 4px;
+  transform: rotate(-15deg);
+  position: relative;
+}
+.roblox-tilt-logo-sm::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 14px;
+  height: 14px;
+  background: #191B1D;
+  border-radius: 2px;
+}
+
+.game-topbar-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.game-topbar-icon:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.in-game-title {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--text-primary);
+  margin-left: 8px;
+}
+
+.game-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.in-game-stat {
+  background: rgba(15, 23, 42, 0.9);
+  padding: 8px 20px;
+  border-radius: var(--radius-full);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+.in-game-stat strong {
+  color: var(--accent-gold);
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+#inGameSpecialStat {
+  min-width: 360px;
+  justify-content: center;
+  border-color: #38BDF8;
+  background: rgba(15, 23, 42, 0.95);
+}
+
+.btn-leave-game {
+  background: rgba(240, 68, 56, 0.25);
+  color: #FFA49D;
+  border: 1.5px solid var(--accent-red);
+  padding: 8px 18px;
+  border-radius: var(--radius-md);
+  font-weight: 800;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-leave-game:hover {
+  background: var(--accent-red);
+  color: #FFFFFF;
+}
+
+/* CANVAS HOLDER */
+.canvas-holder {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0D0E10;
+  overflow: hidden;
+  width: 100%;
+  height: calc(100vh - 52px);
+}
+
+#gameCanvas {
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+  background: #111418;
+  display: block;
+}
+
+/* INSTRUCTIONS & GAME OVER OVERLAYS */
+.game-instructions {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(25, 27, 29, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 28px 36px;
+  text-align: center;
+  max-width: 480px;
+  width: 90%;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  z-index: 20;
+}
+
+.game-instructions h2,
+.game-instructions h3 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+}
+
+.game-instructions p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.game-over-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* IN-GAME CHAT & COMMAND DRAWER */
+.in-game-chat {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 320px;
+  max-height: 240px;
+  background: rgba(25, 27, 29, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  z-index: 15;
+  box-shadow: var(--shadow-md);
+}
+
+.chat-messages {
+  flex: 1;
+  max-height: 180px;
+  overflow-y: auto;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.8rem;
+}
+
+.chat-msg-item {
+  line-height: 1.3;
+}
+.chat-msg-item strong {
+  color: var(--accent-roblox);
+}
+.chat-msg-item.admin-msg strong {
+  color: var(--accent-gold);
+}
+
+.chat-input-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* ON-SCREEN ROBLOX D-PAD & TOUCH/MOUSE CONTROLS */
+.touch-controls-layer {
+  position: absolute;
+  bottom: 16px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 24px;
+  pointer-events: none;
+  z-index: 25;
+}
+
+.touch-dpad, .touch-actions {
+  display: flex;
+  gap: 10px;
+  pointer-events: auto;
+}
+
+.touch-btn {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(35, 37, 39, 0.75);
+  backdrop-filter: blur(6px);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  font-size: 1.3rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  user-select: none;
+  touch-action: manipulation;
+  transition: transform 0.1s, background 0.1s;
+}
+.touch-btn:active, .touch-btn.active {
+  transform: scale(0.92);
+  background: var(--accent-roblox);
+  border-color: #FFFFFF;
+}
+.touch-btn.touch-btn-action {
+  background: rgba(0, 176, 111, 0.8);
+  width: 60px;
+  height: 60px;
+}
+.touch-btn.touch-btn-action:active {
+  background: var(--accent-green-hover);
+}
+

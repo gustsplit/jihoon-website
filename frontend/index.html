@@ -8,22 +8,41 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="arcade/arcade-board.css">
 </head>
 <body>
   <main class="page">
-    <div class="brick-row" aria-hidden="true">
-      <div class="brick red"><span></span><span></span><span></span><span></span></div>
-      <div class="brick yellow"><span></span><span></span><span></span><span></span></div>
-      <div class="brick blue"><span></span><span></span><span></span><span></span></div>
-      <div class="brick green"><span></span><span></span><span></span><span></span></div>
-    </div>
+    <section class="airport" aria-labelledby="site-title">
+      <div class="clouds" aria-hidden="true">
+        <span class="cloud c1"></span><span class="cloud c2"></span><span class="cloud c3"></span>
+      </div>
 
-    <header class="hero">
-      <h1 id="site-title">Jihoon</h1>
-      <p id="site-welcome" class="welcome"></p>
-    </header>
+      <header class="airport-sign">
+        <h1 id="site-title">Jihoon</h1>
+        <p id="site-welcome" class="welcome"></p>
+      </header>
 
-    <nav id="page-links" class="page-links" aria-label="Pages"></nav>
+      <div class="sky-lane">
+        <div id="jet" class="guardian-jet" aria-hidden="true"></div>
+        <p id="jet-tag" class="jet-tag"></p>
+      </div>
+
+      <div class="airfield" aria-hidden="true">
+        <div id="tower" class="tower"></div>
+        <div class="grass"></div>
+        <div class="runway">
+          <div id="lights-top" class="runway-lights top"></div>
+          <div class="center-line"></div>
+          <div id="lights-bottom" class="runway-lights bottom"></div>
+        </div>
+        <div id="runway-plane" class="runway-plane"></div>
+      </div>
+    </section>
+
+    <nav class="board" aria-labelledby="board-title">
+      <h2 id="board-title" class="board-title"></h2>
+      <div id="page-links" class="page-links"></div>
+    </nav>
 
     <section id="cards" class="cards"></section>
   </main>
@@ -35,6 +54,8 @@
   <!-- Load order: back-end, then interface, then front-end. -->
   <script src="../backend/content.js"></script>
   <script src="../interface/api.js"></script>
+  <script src="airport-art.js"></script>
   <script src="app.js"></script>
+  <script src="arcade/arcade-board.js"></script>
 </body>
 </html>

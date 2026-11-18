@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chess - Jihoon's Arcade</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/arcade.css">
+  <link rel="stylesheet" href="chess.css">
+</head>
+<body class="arcade-page chess-page">
+  <!-- FRONT-END (arcade): chess screen only. Rules + computer player: backend/arcade/chess/. Glue: interface/arcade/chess/chessApi.js -->
+  <header class="chess-top">
+    <a class="arcade-back-link" href="../../index.html">&#9992;&#65039; Back to Airport</a>
+    <h1>Chess</h1>
+    <span class="chess-sub">You are White. The computer is Black.</span>
+  </header>
+
+  <main class="chess-layout">
+    <div id="chess-board" class="chess-board" role="grid" aria-label="Chess board"></div>
+
+    <aside class="chess-side">
+      <p id="chess-status" class="chess-status" aria-live="polite">Your turn!</p>
+      <div class="chess-group">
+        <span class="chess-label">Computer level</span>
+        <div id="chess-levels" class="chess-levels"></div>
+      </div>
+      <div class="chess-buttons">
+        <button id="chess-new" type="button" class="chess-btn green">New Game</button>
+        <button id="chess-undo" type="button" class="chess-btn yellow">Undo</button>
+      </div>
+      <p class="chess-help">Click one of your pieces, then click a glowing square to move it.</p>
+    </aside>
+  </main>
+
+  <script type="module" src="chessBoard.js"></script>
+</body>
+</html>

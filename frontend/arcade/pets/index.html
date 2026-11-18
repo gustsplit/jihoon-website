@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pet Simulator - Jihoon's Arcade</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/main.css">
+  <link rel="stylesheet" href="../shared/games.css">
+  <link rel="stylesheet" href="../shared/arcade.css">
+</head>
+<body class="arcade-page">
+  <!-- FRONT-END (arcade): game screen only. Game data: backend/arcade/pets/. Glue: interface/arcade/pets/launch.js -->
+  <main id="appContainer">
+    <section id="gameView" class="view-section hidden">
+      <div class="game-viewport-wrapper">
+        <div class="game-topbar">
+          <div class="game-topbar-left">
+            <a class="arcade-back-link" href="../../index.html">&#9992;&#65039; Back to Airport</a>
+            <span class="in-game-title" id="inGameTitle">Pet Simulator</span>
+          </div>
+          <div class="game-topbar-right">
+            <div class="in-game-stat" id="inGameScoreStat">
+              <span>Score:</span> <strong id="inGameScoreVal">0</strong>
+            </div>
+            <div class="in-game-stat" id="inGameSpecialStat">
+              <span id="inGameSpecialLabel">Level:</span> <strong id="inGameSpecialVal">1</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="canvas-holder">
+          <canvas id="gameCanvas" width="960" height="540"></canvas>
+
+          <div id="gameInstructionOverlay" class="game-instructions">
+            <h3 id="instructionTitle">How to play</h3>
+            <p id="instructionText"></p>
+            <button id="startGameBtn" class="btn-primary">Ready &amp; Play!</button>
+          </div>
+
+          <div id="gameOverOverlay" class="game-instructions hidden">
+            <h2 id="gameOverTitle">Game Over!</h2>
+            <p id="gameOverSummary">Your score: 0</p>
+            <div class="game-over-buttons">
+              <button id="nextStageBtn" class="btn-primary hidden">Next Stage</button>
+              <button id="restartGameBtn" class="btn-primary">Play Again</button>
+              <button id="exitToHubBtn" class="btn-secondary">Back to Airport</button>
+            </div>
+          </div>
+
+          <div class="touch-controls-layer">
+            <div class="touch-dpad">
+              <button type="button" class="touch-btn" id="ctrlLeft" title="Move Left">&#9664;</button>
+              <button type="button" class="touch-btn" id="ctrlRight" title="Move Right">&#9654;</button>
+            </div>
+            <div class="touch-actions">
+              <button type="button" class="touch-btn touch-btn-action" id="ctrlJump" title="Jump / Space">&#11014; JUMP</button>
+              <button type="button" class="touch-btn" id="ctrlAction" title="Action">&#9889; ACT</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="../../../interface/arcade/pets/launch.js"></script>
+</body>
+</html>

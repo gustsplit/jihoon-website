@@ -1,0 +1,2 @@
+/* FRONT-END (Arcade): spacing for the second departures board. Everything else reuses the main board styles. */
+.arcade-board { margin-top: 24px; }

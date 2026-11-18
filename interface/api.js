@@ -9,7 +9,15 @@
   global.SiteAPI = {
     loadSiteContent: function () { return Promise.resolve(backend.getContent()); },
     loadFavoriteBricks: function () { return Promise.resolve(backend.getFavoriteBricks()); },
+    loadGameText: function () { return Promise.resolve(backend.getGameText()); },
     loadStackOrder: function () { return Promise.resolve(backend.getStackOrder()); },
     checkStack: function (stack) { return Promise.resolve(backend.checkStack(stack.slice())); }
   };
+})(window);
+
+// INTERFACE (added for the Arcade): the front-end asks for the Arcade board data here.
+(function (global) {
+  "use strict";
+
+  global.SiteAPI.loadArcade = function () { return Promise.resolve(global.SiteBackend.getArcade()); };
 })(window);

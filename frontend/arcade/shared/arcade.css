@@ -1,0 +1,11 @@
+/* FRONT-END (arcade): small additions on top of Mini Roblox's main.css + games.css (copied unchanged).
+   Game screens keep the original dark look so the games stay easy to read. */
+body.arcade-page { background: #0B0D0F; }
+.arcade-back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 9999px;
+  background: #0055BF; color: #FFFFFF; font-weight: 700; font-size: 0.9rem; text-decoration: none;
+  border: 1px solid #003F8F;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.35), inset 0 -2px 0 rgba(0, 0, 0, 0.25);
+}
+.arcade-back-link:hover, .arcade-back-link:focus-visible { background: #3D7FD6; }
