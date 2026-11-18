@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stud Stacking Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <a class="back-link" href="index.html">&larr; Home</a>
+
+    <header class="hero">
+      <h1 class="page-title">Stud Stacking Game</h1>
+      <p class="welcome">Stack the studs in this order: red, yellow, blue, green!</p>
+    </header>
+
+    <section class="game">
+      <div class="game-board">
+        <div id="order-hint" class="order-hint" aria-label="Color order"></div>
+        <div id="stack" class="stack" aria-live="polite"></div>
+        <p id="message" class="message">Click a stud to start!</p>
+      </div>
+      <div id="choices" class="choices"></div>
+      <button id="restart" class="restart" type="button">Play Again</button>
+    </section>
+
+    <div id="party" class="party" aria-hidden="true"></div>
+  </main>
+
+  <footer class="footer">
+    <p>Built brick by brick &middot; <span id="year"></span></p>
+  </footer>
+
+  <script src="../backend/content.js"></script>
+  <script src="../interface/api.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

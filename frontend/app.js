@@ -1,4 +1,4 @@
-// FRONT-END: rendering and UI behavior only. Gets data through the interface (SiteAPI).
+// FRONT-END: homepage rendering and UI behavior only. Gets data through the interface (SiteAPI).
 (function () {
   "use strict";
 
@@ -7,17 +7,24 @@
     document.getElementById("site-title").textContent = content.title;
     document.getElementById("site-welcome").textContent = content.welcome;
 
+    var links = document.getElementById("page-links");
+    content.pages.forEach(function (page) {
+      var a = document.createElement("a");
+      a.className = "page-link " + page.color;
+      a.href = page.href;
+      a.textContent = page.label;
+      links.appendChild(a);
+    });
+
     var cards = document.getElementById("cards");
     content.sections.forEach(function (section) {
       var card = document.createElement("article");
       card.className = "card " + section.color;
       card.id = section.id;
-
       var h2 = document.createElement("h2");
       h2.textContent = section.heading;
       var p = document.createElement("p");
       p.textContent = section.text;
-
       card.appendChild(h2);
       card.appendChild(p);
       card.addEventListener("click", function () {
